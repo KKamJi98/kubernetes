@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: ReplicaSet
-metadats:
+metadatas:
   name: myapp-replicaset
   labels:
     app: myapp
