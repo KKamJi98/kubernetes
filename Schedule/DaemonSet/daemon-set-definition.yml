@@ -12,5 +12,6 @@ spec:
         app: monitoring-agent
     spec:
       containers:
-      - name: monitoring-agent
-        image: <monitoring-agent>
+        - name: monitoring-agent
+          image: <monitoring-agent>
+Transform: AWS::Serverless-2016-10-31
