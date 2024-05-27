@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: exam-master-backend-developer-role-binding
+  namespace: exam-master-backend
+subjects:
+- kind: User
+  name: exam-master-backend-developer
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: exam-master-backend-developer-role
+  apiGroup: rbac.authorization.k8s.io
