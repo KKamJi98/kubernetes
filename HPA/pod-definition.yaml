@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-hpa-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nginx-hpa-deployment
+  template:
+    metadata:
+      labels:
+        run: nginx-hpa-deployment
+    spec:
+      containers:
+      - name: nginx-hpa
+        image: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+          limits:
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-hpa-service
+  labels:
+    run: nginx-hpa-deployment
+spec:
+  ports:
+  - port: 80
+  selector:
+    run: nginx-hpa-deployment

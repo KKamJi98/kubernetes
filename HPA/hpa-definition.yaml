@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx-hpa-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 40
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60  # 안정화 기간을 60초로 설정
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
