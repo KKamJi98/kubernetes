@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath: # 해당 옵션을 프로덕션 레벨에서 잘 사용되지 않음
+    path: /tmp/data
+  awsElasticBlockStore:
+    volumeID: <volume-id>
+    fsType: ext4
+  persistentVolumeReclaimPolicy: Delete # 유지
