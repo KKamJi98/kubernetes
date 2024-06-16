@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sc-test-pod
+  labels: 
+    app: sc-test-pod
+spec:
+  containers:
+    - name: sc-test-container
+      image: nginx
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: sc-test-volume
+  volumes:
+    - name: sc-test-volume
+      persistentVolumeClaim:
+        claimName: local-pvc-test
