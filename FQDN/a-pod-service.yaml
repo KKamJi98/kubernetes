@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  namespace: a
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: html-volume
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: html-volume
+    emptyDir: {}
+  initContainers:
+  - name: init-nginx
+    image: busybox
+    command: ['sh', '-c', 'echo "this is a namespace nginx" > /mnt/index.html']
+    volumeMounts:
+    - name: html-volume
+      mountPath: /mnt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: a
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
