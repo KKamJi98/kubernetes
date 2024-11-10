@@ -5,8 +5,14 @@ metadata:
   namespace: jenkins
 spec:
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
+      protocol: TCP
+    - name: jnlp
+      port: 50000
+      targetPort: 50000
+      protocol: TCP
   selector:
     app: jenkins
   type: LoadBalancer
