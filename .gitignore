@@ -2,3 +2,5 @@
 *.key
 *.csr
 *csr.yaml
+*secrets*
+*secret*
