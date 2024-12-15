@@ -3,7 +3,7 @@ kind: Service
 metadata: 
   name: sc-test-svc
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: sc-test-pod
   ports:
