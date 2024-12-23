@@ -1,13 +1,13 @@
-## Nginx Ingress Controller 설치
+# Nginx Ingress Controller 설치
 
-### Helm Repository 추가
+## Helm Repository 추가
 
 ```bash
 ❯ helm repo add ingress-nginx <https://kubernetes.github.io/ingress-nginx>
 ❯ helm repo update
 ```
 
-### Helm을 사용해 Nginx Ingress Controller 설치
+## Helm을 사용해 Nginx Ingress Controller 설치
 
 ```bash
 helm install nginx-ingress ingress-nginx/ingress-nginx \
@@ -71,7 +71,7 @@ spec:
 ingress.networking.k8s.io/nginx-test-ingress created
 ```
 
-### ingress 확인
+## ingress 확인
 
 ```bash
 ❯ k get ingress
@@ -79,7 +79,7 @@ NAME                 CLASS   HOSTS             ADDRESS   PORTS   AGE
 nginx-test-ingress   nginx   test.kkamji.net             80      4m53s
 ```
 
-### test.kkamji.net으로 접속 확인
+## test.kkamji.net으로 접속 확인
 
 ```bash
 ❯ curl test.kkamji.net
