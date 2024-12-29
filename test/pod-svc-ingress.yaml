@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx-test-pod
+  name: nginx-test-pod
+spec:
+  containers:
+  - image: nginx
+    name: nginx-test-pod
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: nginx-test-pod
+  name: nginx-test-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: nginx-test-pod
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-test-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod #tls 인증서를 발급받을 ClusterIssuer 지정
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - test.kkamji.net
+      secretName: test-tls
+  rules:
+  - host: test.kkamji.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-test-service
+            port:
+              number: 80
