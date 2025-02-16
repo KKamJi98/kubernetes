@@ -4,6 +4,7 @@ metadata:
   name: al2023-test
   labels:
     app: al2023-test
+    manage: server-side
 spec:
   containers:
   - name: al2023-test
