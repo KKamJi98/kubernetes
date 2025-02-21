@@ -10,3 +10,8 @@ spec:
   - name: al2023-test
     image: public.ecr.aws/amazonlinux/amazonlinux:2023-minimal
     command: ["sleep", "infinity"]
+    resources:  # ✅ resources를 containers 내부에 추가
+      limits:
+        memory: "128Mi"
+      requests:
+        memory: "64Mi"  # (선택 사항) 요청 메모리 설정 가능
