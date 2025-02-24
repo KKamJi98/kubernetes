@@ -24,3 +24,15 @@ repoServer:
 
 applicationSet:
   replicas: 1
+
+configs:
+  cm:
+    oidc.config: |
+      name: Keycloak
+      issuer: https://keycloak.kkamji.net/realms/master
+      clientID: argocd
+      enablePKCEAuthentication: true
+      requestedScopes: ["openid", "profile", "email", "groups"]
+  rbac:
+    policy.csv: |
+      g, /ArgoCDAdmins, role:admin
