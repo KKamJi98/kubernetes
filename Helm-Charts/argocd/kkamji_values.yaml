@@ -12,6 +12,7 @@ server:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       cert-manager.io/cluster-issuer: letsencrypt-prod
+      
 
 redis-ha:
   enabled: false
