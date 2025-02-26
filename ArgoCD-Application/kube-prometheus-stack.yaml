@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: kube-prometheus-stack
+    app.kubernetes.io/part-of: monitoring
+spec:
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 69.5.2
+    helm:
+      releaseName: kube-prometheus-stack
+      values: |-
+        grafana:
+          ingress:
+            ingressClassName: nginx
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+            hosts:
+              - grafana.kkamji.net
+            paths:
+              - /
+            tls:
+              - secretName: grafana-tls
+                hosts:
+                  - grafana.kkamji.net
+
+        prometheus:
+          ingress:
+            ingressClassName: nginx
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              cert-manager.io/cluster-issuer: letsencrypt-prod
+              nginx.ingress.kubernetes.io/auth-type: "basic" # 인증 타입
+              nginx.ingress.kubernetes.io/auth-secret: "prometheus-basic-auth" # 인증에 사용할 secret
+              nginx.ingress.kubernetes.io/auth-realm: "Authentication Required" # 인증 프롬프트에 보내는 메시지
+            hosts:
+              - prometheus.kkamji.net
+            paths:
+              - /
+            tls:
+              - secretName: prometheus-tls
+                hosts:
+                  - prometheus.kkamji.net
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
