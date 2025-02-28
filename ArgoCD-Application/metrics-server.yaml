@@ -6,17 +6,19 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://kubernetes-sigs.github.io/metrics-server/
-    chart: metrics-server
-    targetRevision: 3.12.2
+    repoURL: https://github.com/KKamJi98/helm-charts
+    path: metrics-server
+    targetRevision: main
     helm:
       releaseName: metrics-server
-      values: |-
-        apiService:
-          create: true
-        args:
-          - --kubelet-insecure-tls
-          - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      valueFiles:
+      - kkamji_values.yaml
+        #      values: |-
+        #        apiService:
+        #          create: true
+        #        args:
+        #          - --kubelet-insecure-tls
+        #          - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: kube-system
