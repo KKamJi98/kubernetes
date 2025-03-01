@@ -2,9 +2,9 @@
 *.key
 *.csr
 *csr.yaml
-*secrets*
-*secret*
 logstash.yaml
 ELK
 harbor
 auth
+
+MongoDB/mongodb-secret.yaml
