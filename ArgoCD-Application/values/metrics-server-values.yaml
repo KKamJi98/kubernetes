@@ -1,5 +1,0 @@
-apiService:
-  create: true
-args:
-  - --kubelet-insecure-tls
-  - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
