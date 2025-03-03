@@ -6,5 +6,5 @@ logstash.yaml
 ELK
 harbor
 auth
-
 MongoDB/mongodb-secret.yaml
+.DS_Store
