@@ -8,3 +8,5 @@ harbor
 auth
 MongoDB/mongodb-secret.yaml
 .DS_Store
+
+service-account.yaml
